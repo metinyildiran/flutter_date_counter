@@ -1,5 +1,7 @@
+import 'dart:math';
+
 import 'package:date_counter/util/preference_utils.dart';
-import 'package:date_counter/widgets/CircleButton.dart';
+import 'package:date_counter/widgets/circle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:date_counter/util/constants.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -18,6 +20,7 @@ class DateCounter extends StatefulWidget {
 class _DateCounterState extends State<DateCounter> {
   String dayText = "0 DAY";
   int _daysPassed = 0;
+  Color _containerColor = Colors.white;
 
   void updateDayCounter() {
     // PreferenceUtils.setString(Constants.STARTING_DAY, DateTime.now().subtract(Duration(hours: 48)).toString());
@@ -41,27 +44,40 @@ class _DateCounterState extends State<DateCounter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Stack(
-              children: [
-                const SizedBox(
-                    width: 200.0,
-                    height: 200.0,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 10.0,
-                    )),
-                SizedBox(
-                    width: 200.0,
-                    height: 200.0,
-                    child: CircleButton(
-                      dayText: dayText,
-                    )),
-              ],
-            ),
-          ],
+      body: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        color: _containerColor,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Stack(
+                children: [
+                  const SizedBox(
+                      width: 200.0,
+                      height: 200.0,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 10.0,
+                      )),
+                  SizedBox(
+                      width: 200.0,
+                      height: 200.0,
+                      child: CircleButton(
+                          onClicked: () async {
+                            setState(() {
+                              _containerColor = Color.fromRGBO(Random().nextInt(255), Random().nextInt(255), Random().nextInt(255), 1.0);
+                            });
+                            await Future.delayed(const Duration(milliseconds: 400));
+                            setState(() {
+                              _containerColor = Colors.white;
+                            });
+                          },
+                        dayText: dayText,
+                      )),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

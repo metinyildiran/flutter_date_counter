@@ -5,13 +5,14 @@ import '../util/preference_utils.dart';
 
 class CircleButton extends StatelessWidget {
   final String dayText;
+  final GestureTapCallback onClicked;
 
-  const CircleButton({Key? key, required this.dayText}) : super(key: key);
+  const CircleButton({Key? key, required this.onClicked, required this.dayText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      onPressed: () {},
+      onPressed: onClicked,
       onLongPress: () {
         _showMyDialog(context, dayText);
       },
