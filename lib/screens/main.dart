@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:date_counter/util/preference_utils.dart';
 import 'package:date_counter/widgets/circle_button.dart';
 import 'package:flutter/material.dart';

@@ -52,7 +52,7 @@ Future<void> _showMyDialog(BuildContext context, String dayText) async {
               Navigator.of(context).pop();
             },
           ),
-          TextButton(
+          ElevatedButton(
             child: const Text('Yes'),
             onPressed: () {
               PreferenceUtils.setString(
